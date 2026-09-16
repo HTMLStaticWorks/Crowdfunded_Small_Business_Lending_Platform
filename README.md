@@ -1,0 +1,2 @@
+# Crowdfunded_Small_Business_Lending_Platform
+Automated website repository for Crowdfunded_Small_Business_Lending_Platform

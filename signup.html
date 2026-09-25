@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Create your LendCircle account — borrow or invest in the community lending platform.">
+<title>Create Account - LendCircle</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230F6B57'/%3E%3Cpath d='M16 38c12-2 19-9 29-23 1 12-3 24-13 29-7 3-12 0-16-6Z' fill='%23c9974d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  :root {
+    --auth-bg: #0F2C25;
+    --auth-card: #ffffff;
+    --auth-text: #1E293B;
+    --auth-muted: #64748B;
+    --auth-border: #E2E8F0;
+    --auth-input-bg: #ffffff;
+    --auth-primary: #0F6B57;
+    --auth-accent: #C9974D;
+  }
+  [data-theme="dark"] {
+    --auth-bg: #0F2C25;
+    --auth-card: #12221E;
+    --auth-text: #E8F0ED;
+    --auth-muted: #9FB2AA;
+    --auth-border: rgba(255,255,255,0.1);
+    --auth-input-bg: #0a1a17;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 0; min-height: 100vh;
+    background: var(--auth-bg); color: var(--auth-text);
+    font-family: 'DM Sans', sans-serif;
+    display: flex; flex-direction: column;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  /* Top Bar */
+  .auth-topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 40px;
+  }
+  .auth-logo {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none; font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700; color: #fff;
+  }
+  .auth-logo-icon {
+    width: 40px; height: 40px; background: #0F2C25;
+    color: var(--auth-accent); border-radius: 12px;
+    display: grid; place-items: center; font-size: 1.2rem;
+    border: none;
+  }
+  [data-theme="dark"] .auth-logo { color: #E8F0ED; }
+  [data-theme="dark"] .auth-logo-icon { background: #0F2C25; }
+
+  .auth-topbar-actions { display: flex; align-items: center; gap: 8px; }
+  .auth-icon-btn {
+    width: 38px; height: 38px; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.1); color: #fff;
+    display: grid; place-items: center; cursor: pointer; font-size: 0.9rem; transition: 0.2s;
+  }
+  [data-theme="dark"] .auth-icon-btn { border-color: rgba(255,255,255,0.15); background: rgba(255,255,255,0.06); }
+  .auth-icon-btn:hover { background: rgba(255,255,255,0.25); border-color: #fff; }
+
+  /* Main */
+  .auth-main {
+    flex: 1; display: flex; align-items: flex-start; justify-content: center;
+    padding: 90px 24px 60px;
+  }
+
+  .auth-card {
+    background: var(--auth-card); border-radius: 28px; padding: 44px 44px 36px;
+    border: 1px solid var(--auth-border);
+    box-shadow: 0 32px 80px rgba(0,0,0,0.25);
+    width: 100%; max-width: 580px; position: relative;
+  }
+  [data-theme="dark"] .auth-card { box-shadow: 0 32px 80px rgba(0,0,0,0.5); }
+
+  .auth-card::before {
+    content: ''; position: absolute; top: 0; left: 44px; right: 44px; height: 3px;
+    background: linear-gradient(90deg, var(--auth-primary), var(--auth-accent));
+    border-radius: 0 0 4px 4px;
+  }
+
+  /* Card header */
+  .auth-card-header { margin-bottom: 28px; }
+  .auth-card-header h1 {
+    font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700;
+    color: var(--auth-text); margin: 0 0 6px;
+  }
+  .auth-card-header p { color: var(--auth-muted); margin: 0; font-size: 0.9rem; }
+
+  /* Type selector */
+  .type-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+  .type-btn {
+    background: var(--auth-input-bg); border: 2px solid var(--auth-border);
+    border-radius: 14px; padding: 18px; text-align: left; cursor: pointer;
+    transition: 0.25s; color: var(--auth-text); display: flex; flex-direction: column; gap: 8px;
+  }
+  .type-btn:hover { border-color: rgba(15,107,87,0.4); }
+  .type-btn.active { border-color: var(--auth-primary); background: rgba(15,107,87,0.05); }
+  [data-theme="dark"] .type-btn.active { background: rgba(15,107,87,0.15); }
+  .type-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: rgba(15,107,87,0.1); color: var(--auth-primary);
+    display: grid; place-items: center; font-size: 1rem;
+  }
+  .type-btn.active .type-icon { background: var(--auth-primary); color: #fff; }
+  .type-btn strong { display: block; font-size: 0.95rem; margin-bottom: 2px; color: var(--auth-text); }
+  .type-btn span { font-size: 0.82rem; color: var(--auth-muted); font-weight: normal; }
+
+  /* Fields */
+  .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .field-span { grid-column: 1 / -1; }
+  .field-group { margin-bottom: 16px; }
+  .field-label { display: block; font-weight: 600; font-size: 0.85rem; color: var(--auth-text); margin-bottom: 6px; }
+  .field-wrap { position: relative; }
+  .field-input, .field-select {
+    width: 100%; padding: 12px 14px; border-radius: 10px;
+    border: 1.5px solid var(--auth-border);
+    background: var(--auth-input-bg); color: var(--auth-text);
+    font-family: inherit; font-size: 0.9rem; outline: none; transition: 0.2s;
+    -webkit-appearance: none; appearance: none;
+  }
+  .field-input:focus, .field-select:focus {
+    border-color: var(--auth-primary); box-shadow: 0 0 0 4px rgba(15,107,87,0.1);
+  }
+  .field-input::placeholder { color: var(--auth-muted); }
+  .field-input.has-eye { padding-right: 42px; }
+  html[dir="rtl"] .field-input.has-eye { padding-right: 14px; padding-left: 42px; }
+  .field-input.is-invalid { border-color: #EF4444; }
+  .error-msg { color: #EF4444; font-size: 0.75rem; margin-top: 3px; display: none; font-weight: 500; }
+  .field-select {
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%2364748B' d='M0 0l5 5 5-5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 13px center; padding-right: 34px;
+  }
+  html[dir="rtl"] .field-select { background-position: left 13px center; padding-right: 14px; padding-left: 34px; }
+  .eye-toggle {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    color: var(--auth-muted); cursor: pointer; background: none; border: none; font-size: 0.95rem; padding: 4px; transition: color 0.2s;
+  }
+  .eye-toggle:hover { color: var(--auth-primary); }
+  html[dir="rtl"] .eye-toggle { right: auto; left: 12px; }
+
+  /* Password strength */
+  .pwd-strength-meter { display: flex; gap: 4px; margin: 8px 0 5px; }
+  .pwd-bar { flex: 1; height: 4px; background: var(--auth-border); border-radius: 99px; transition: 0.3s; }
+  .pwd-label { font-size: 0.75rem; font-weight: 600; color: var(--auth-muted); display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .pwd-req { font-size: 0.75rem; color: var(--auth-muted); display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 16px; }
+  .pwd-req span { display: flex; align-items: center; gap: 5px; }
+  .pwd-req span.valid { color: #10B981; }
+
+  /* Terms */
+  .terms-label {
+    display: flex; align-items: flex-start; gap: 10px;
+    cursor: pointer; font-size: 0.85rem; color: var(--auth-muted); font-weight: 500;
+  }
+  .terms-label input { width: 15px; height: 15px; accent-color: var(--auth-primary); margin-top: 2px; flex-shrink: 0; }
+  .terms-label a { color: var(--auth-primary); text-decoration: none; }
+  .terms-label a:hover { text-decoration: underline; }
+
+  /* Submit */
+  .btn-submit {
+    width: 100%; padding: 14px; border-radius: 99px; background: var(--auth-primary);
+    color: #fff; border: none; font-size: 0.95rem; font-weight: 700; cursor: pointer;
+    transition: 0.3s; display: flex; justify-content: center; align-items: center; margin-top: 20px;
+  }
+  .btn-submit:hover { background: #0a5243; transform: translateY(-2px); box-shadow: 0 10px 24px rgba(15,107,87,0.3); }
+  .btn-submit .spinner {
+    display: none; width: 20px; height: 20px;
+    border: 3px solid rgba(255,255,255,0.3); border-top-color: #fff;
+    border-radius: 50%; animation: spin 1s linear infinite;
+  }
+  .btn-submit.loading .btn-text { display: none; }
+  .btn-submit.loading .spinner { display: block; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Divider */
+  .auth-divider {
+    display: flex; align-items: center; margin: 22px 0;
+    color: var(--auth-muted); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px;
+  }
+  .auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--auth-border); }
+  .auth-divider::before { margin-right: 12px; }
+  .auth-divider::after { margin-left: 12px; }
+
+  /* Social */
+  .social-buttons { display: flex; gap: 10px; }
+  .btn-social {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 7px;
+    padding: 11px 6px; border-radius: 10px;
+    border: 1.5px solid var(--auth-border); background: var(--auth-input-bg);
+    color: var(--auth-text); font-weight: 600; font-size: 0.82rem;
+    cursor: pointer; transition: 0.2s; text-decoration: none;
+  }
+  .btn-social:hover { border-color: var(--auth-primary); background: rgba(15,107,87,0.05); transform: translateY(-1px); }
+  .btn-social img { width: 16px; height: 16px; flex-shrink: 0; }
+  .btn-social .s-icon { font-size: 1rem; flex-shrink: 0; }
+
+  /* Footer */
+  .auth-footer-link { text-align: center; margin-top: 20px; font-size: 0.88rem; color: var(--auth-muted); }
+  .auth-footer-link a { color: var(--auth-primary); font-weight: 600; text-decoration: none; }
+  .auth-footer-link a:hover { text-decoration: underline; }
+
+  /* Success */
+  .success-panel { display: none; text-align: center; padding: 16px 0; }
+  .success-icon {
+    width: 72px; height: 72px; background: rgba(16,185,129,0.1); color: #10B981;
+    border-radius: 50%; display: grid; place-items: center; font-size: 2.2rem; margin: 0 auto 20px;
+  }
+
+  @media (max-width: 640px) {
+    .auth-topbar { padding: 16px 20px; }
+    .auth-card { padding: 36px 20px 28px; border-radius: 20px; }
+    .auth-main { padding-top: 76px; }
+    .type-selector, .field-grid { grid-template-columns: 1fr; }
+    .field-span { grid-column: auto; }
+    .social-buttons { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="auth-topbar">
+  <a href="index.html" class="auth-logo">
+    <div class="auth-logo-icon"><i class="fa-solid fa-leaf"></i></div>
+    LendCircle
+  </a>
+  <div class="auth-topbar-actions">
+    <button class="auth-icon-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle dark mode">
+      <i class="fa-solid fa-moon" id="themeIcon"></i>
+    </button>
+    <button class="auth-icon-btn" onclick="toggleRTL()" title="Toggle RTL">
+      <i class="fa-solid fa-arrow-right-arrow-left"></i>
+    </button>
+  </div>
+</div>
+
+<main class="auth-main">
+  <div class="auth-card">
+
+    <!-- SIGNUP FLOW -->
+    <div id="signupFlow">
+      <div class="auth-card-header">
+        <h1>Create Your Account</h1>
+        <p>Join the LendCircle community as a borrower or investor.</p>
+      </div>
+
+      <div class="type-selector">
+        <button type="button" class="type-btn active" id="btnBorrower" onclick="setAccountType('borrower')">
+          <div class="type-icon"><i class="fa-solid fa-store"></i></div>
+          <div>
+            <strong>I Want to Borrow</strong>
+            <span>Find funding for my business</span>
+          </div>
+        </button>
+        <button type="button" class="type-btn" id="btnInvestor" onclick="setAccountType('investor')">
+          <div class="type-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <div>
+            <strong>I Want to Invest</strong>
+            <span>Invest in growing businesses</span>
+          </div>
+        </button>
+      </div>
+
+      <form id="signupForm" novalidate>
+        <div id="dynamicFields"></div>
+
+        <div class="field-grid" style="margin-top:4px;">
+          <div class="field-group">
+            <label class="field-label">Create Password</label>
+            <div class="field-wrap">
+              <input type="password" class="field-input has-eye req" id="pwd" placeholder="Create a password" oninput="checkPasswordStrength()">
+              <button type="button" class="eye-toggle" onclick="toggleEyeField('pwd','eyePwd')" aria-label="Toggle">
+                <i class="fa-regular fa-eye-slash" id="eyePwd"></i>
+              </button>
+            </div>
+            <span class="error-msg" id="pwdError">Password required</span>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Confirm Password</label>
+            <div class="field-wrap">
+              <input type="password" class="field-input has-eye req" id="pwdConfirm" placeholder="Confirm your password">
+              <button type="button" class="eye-toggle" onclick="toggleEyeField('pwdConfirm','eyeConfirm')" aria-label="Toggle">
+                <i class="fa-regular fa-eye-slash" id="eyeConfirm"></i>
+              </button>
+            </div>
+            <span class="error-msg" id="confirmError">Passwords must match</span>
+          </div>
+        </div>
+
+        <div class="pwd-label">
+          <span>Password Strength</span>
+          <span id="pwdText" style="color:var(--auth-muted);">Weak</span>
+        </div>
+        <div class="pwd-strength-meter">
+          <div class="pwd-bar" id="bar1"></div>
+          <div class="pwd-bar" id="bar2"></div>
+          <div class="pwd-bar" id="bar3"></div>
+          <div class="pwd-bar" id="bar4"></div>
+        </div>
+        <div class="pwd-req">
+          <span id="req-len"><i class="fa-solid fa-circle-check" style="font-size:0.7rem;opacity:0.3;"></i> 8+ characters</span>
+          <span id="req-up"><i class="fa-solid fa-circle-check" style="font-size:0.7rem;opacity:0.3;"></i> Uppercase letter</span>
+          <span id="req-low"><i class="fa-solid fa-circle-check" style="font-size:0.7rem;opacity:0.3;"></i> Lowercase letter</span>
+          <span id="req-num"><i class="fa-solid fa-circle-check" style="font-size:0.7rem;opacity:0.3;"></i> Number / Special</span>
+        </div>
+
+        <div class="field-group" style="margin-bottom:0;">
+          <label class="terms-label">
+            <input type="checkbox" id="termsCheckbox">
+            <span>I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</span>
+          </label>
+          <span class="error-msg" id="termsError">You must agree to the terms</span>
+        </div>
+
+        <button type="submit" class="btn-submit" id="signupBtn">
+          <span class="btn-text" id="btnLabel">Create Borrower Account</span>
+          <div class="spinner"></div>
+        </button>
+      </form>
+
+      <div class="auth-divider">OR SIGN UP WITH</div>
+
+      <div class="social-buttons">
+        <button type="button" class="btn-social">
+          <span class="s-icon" style="color:#EA4335;"><i class="fa-brands fa-google"></i></span>
+          Google
+        </button>
+        <button type="button" class="btn-social">
+          <span class="s-icon" style="color:#1877F2;"><i class="fa-brands fa-facebook-f"></i></span>
+          Facebook
+        </button>
+        <button type="button" class="btn-social">
+          <span class="s-icon" style="color:var(--auth-text);"><i class="fa-brands fa-apple"></i></span>
+          Apple
+        </button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div id="successPanel" class="success-panel">
+      <div class="success-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:1.8rem;margin-bottom:12px;color:var(--auth-text);">Check Your Inbox</h1>
+      <p style="color:var(--auth-muted);margin-bottom:28px;">We've sent a verification link to your email address.</p>
+      <div style="display:flex;flex-direction:column;gap:12px;max-width:260px;margin:0 auto;">
+        <button class="btn-submit" style="margin-top:0;" onclick="window.location.href='login.html'">Open Email App</button>
+        <a href="login.html" style="text-align:center;color:var(--auth-primary);font-weight:600;text-decoration:none;padding:10px;">Back to Login</a>
+      </div>
+    </div>
+
+    <div class="auth-footer-link" id="footerLinks">
+      Already have an account? <a href="login.html">Sign In</a>
+    </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  const borrowerFields = `
+    <div class="field-grid">
+      <div class="field-group">
+        <label class="field-label">Full Name</label>
+        <div class="field-wrap"><input type="text" class="field-input req" placeholder="Your full name"></div>
+        <span class="error-msg">Name is required</span>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Business Name</label>
+        <div class="field-wrap"><input type="text" class="field-input req" placeholder="Your business name"></div>
+        <span class="error-msg">Business name is required</span>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Email Address</label>
+        <div class="field-wrap"><input type="email" class="field-input req" id="email" placeholder="your@email.com"></div>
+        <span class="error-msg">Valid email required</span>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Phone Number</label>
+        <div class="field-wrap"><input type="tel" class="field-input req" placeholder="+1 (555) 000-0000"></div>
+        <span class="error-msg">Phone is required</span>
+      </div>
+      <div class="field-group field-span">
+        <label class="field-label">Business Type</label>
+        <div class="field-wrap">
+          <select class="field-select req">
+            <option value="" disabled selected>Select business type</option>
+            <option>Retail</option><option>Food &amp; Beverage</option>
+            <option>Professional Services</option><option>Technology</option>
+            <option>Healthcare</option><option>Manufacturing</option><option>Other</option>
+          </select>
+        </div>
+        <span class="error-msg">Selection required</span>
+      </div>
+    </div>
+  `;
+  const investorFields = `
+    <div class="field-grid">
+      <div class="field-group">
+        <label class="field-label">Full Name</label>
+        <div class="field-wrap"><input type="text" class="field-input req" placeholder="Your full name"></div>
+        <span class="error-msg">Name is required</span>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Email Address</label>
+        <div class="field-wrap"><input type="email" class="field-input req" id="email" placeholder="your@email.com"></div>
+        <span class="error-msg">Valid email required</span>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Phone Number</label>
+        <div class="field-wrap"><input type="tel" class="field-input req" placeholder="+1 (555) 000-0000"></div>
+        <span class="error-msg">Phone is required</span>
+      </div>
+      <div class="field-group">
+        <label class="field-label">Investment Experience</label>
+        <div class="field-wrap">
+          <select class="field-select req">
+            <option value="" disabled selected>Select experience</option>
+            <option>New Investor</option><option>Some Experience</option><option>Experienced Investor</option>
+          </select>
+        </div>
+        <span class="error-msg">Selection required</span>
+      </div>
+      <div class="field-group field-span">
+        <label class="field-label">Investment Range</label>
+        <div class="field-wrap">
+          <select class="field-select req">
+            <option value="" disabled selected>Select range</option>
+            <option>Under $1,000</option><option>$1,000 – $5,000</option>
+            <option>$5,000 – $25,000</option><option>$25,000+</option>
+          </select>
+        </div>
+        <span class="error-msg">Selection required</span>
+      </div>
+    </div>
+  `;
+
+  let currentType = 'borrower';
+
+  function setAccountType(type) {
+    currentType = type;
+    document.getElementById('btnBorrower').classList.toggle('active', type === 'borrower');
+    document.getElementById('btnInvestor').classList.toggle('active', type === 'investor');
+    document.getElementById('dynamicFields').innerHTML = type === 'borrower' ? borrowerFields : investorFields;
+    document.getElementById('btnLabel').textContent = type === 'borrower' ? 'Create Borrower Account' : 'Create Investor Account';
+  }
+  setAccountType('borrower');
+
+  function toggleEyeField(inputId, iconId) {
+    const input = document.getElementById(inputId);
+    const icon = document.getElementById(iconId);
+    input.type = input.type === 'password' ? 'text' : 'password';
+    icon.className = input.type === 'password' ? 'fa-regular fa-eye-slash' : 'fa-regular fa-eye';
+  }
+
+  function checkPasswordStrength() {
+    const val = document.getElementById('pwd').value;
+    let score = 0;
+    const p = (el, l) => { el.className='valid'; el.innerHTML=`<i class="fa-solid fa-circle-check" style="font-size:0.7rem;"></i> ${l}`; };
+    const f = (el, l) => { el.className=''; el.innerHTML=`<i class="fa-solid fa-circle-check" style="font-size:0.7rem;opacity:0.3;"></i> ${l}`; };
+    val.length>=8?(score++,p(document.getElementById('req-len'),'8+ characters')):f(document.getElementById('req-len'),'8+ characters');
+    /[A-Z]/.test(val)?(score++,p(document.getElementById('req-up'),'Uppercase letter')):f(document.getElementById('req-up'),'Uppercase letter');
+    /[a-z]/.test(val)?(score++,p(document.getElementById('req-low'),'Lowercase letter')):f(document.getElementById('req-low'),'Lowercase letter');
+    /[0-9\W]/.test(val)?(score++,p(document.getElementById('req-num'),'Number / Special')):f(document.getElementById('req-num'),'Number / Special');
+    const bars=[1,2,3,4].map(n=>document.getElementById('bar'+n));
+    bars.forEach(b=>b.style.backgroundColor='var(--auth-border)');
+    const txt=document.getElementById('pwdText');
+    const cs=['','#EF4444','#F59E0B','#3B82F6','#10B981'];
+    const ls=['','Weak','Fair','Good','Strong'];
+    if(val.length===0){txt.textContent='Weak';txt.style.color='var(--auth-muted)';}
+    else{for(let i=0;i<score;i++)bars[i].style.backgroundColor=cs[score]||cs[4];txt.textContent=ls[score]||'Strong';txt.style.color=cs[score]||cs[4];}
+    return score>=4;
+  }
+
+  document.getElementById('signupForm').addEventListener('submit', function(e) {
+    e.preventDefault(); let valid=true;
+    document.querySelectorAll('.field-input.req, .field-select.req').forEach(f=>{
+      const err=f.closest('.field-group')?.querySelector('.error-msg');
+      if(!f.value.trim()){f.classList.add('is-invalid');if(err)err.style.display='block';valid=false;}
+      else{f.classList.remove('is-invalid');if(err)err.style.display='none';}
+    });
+    const email=document.getElementById('email');
+    if(email?.value&&!/^[^@]+@[^@]+\.[^@]+$/.test(email.value)){email.classList.add('is-invalid');valid=false;}
+    const pwd=document.getElementById('pwd'), pwdC=document.getElementById('pwdConfirm');
+    if(!checkPasswordStrength()){pwd.classList.add('is-invalid');document.getElementById('pwdError').style.display='block';document.getElementById('pwdError').textContent='Password is too weak';valid=false;}
+    if(pwd.value&&pwdC.value&&pwd.value!==pwdC.value){pwdC.classList.add('is-invalid');document.getElementById('confirmError').style.display='block';valid=false;}
+    if(!document.getElementById('termsCheckbox').checked){document.getElementById('termsError').style.display='block';valid=false;}else{document.getElementById('termsError').style.display='none';}
+    if(valid){
+      const btn=document.getElementById('signupBtn');btn.classList.add('loading');btn.disabled=true;
+      setTimeout(()=>{document.getElementById('signupFlow').style.display='none';document.getElementById('footerLinks').style.display='none';document.getElementById('successPanel').style.display='block';},1500);
+    }
+  });
+
+  function updateThemeIcon() {
+    const isDark=document.documentElement.dataset.theme==='dark';
+    document.getElementById('themeIcon').className=isDark?'fa-solid fa-sun':'fa-solid fa-moon';
+  }
+  const _orig=window.toggleTheme;
+  window.toggleTheme=function(){_orig&&_orig();updateThemeIcon();};
+  document.addEventListener('DOMContentLoaded',updateThemeIcon);
+</script>
+</body>
+</html>
+

@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0F6B57">
+  <title>Investor Dashboard - LendCircle</title>
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230F6B57'/%3E%3Cpath d='M16 38c12-2 19-9 29-23 1 12-3 24-13 29-7 3-12 0-16-6Z' fill='%23c9974d'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    :root {
+      --dash-bg: #F5F8F7;
+      --dash-card: #FFFFFF;
+      --dash-primary: #0F6B57;
+      --dash-secondary: #159B78;
+      --dash-dark: #10231F;
+      --dash-text: #1E293B;
+      --dash-muted: #64748B;
+      --dash-border: #E2E8F0;
+      --dash-radius: 20px;
+      --dash-shadow: 0 10px 40px -10px rgba(15, 107, 87, 0.08);
+      --dash-primary-text: #0F6B57;
+    }
+
+    [data-theme="dark"] {
+      --dash-bg: #0C1714;
+      --dash-card: #12221E;
+      --dash-dark: #FFFFFF;
+      --dash-text: #E8F0ED;
+      --dash-muted: #9FB2AA;
+      --dash-border: rgba(255, 255, 255, 0.1);
+      --dash-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+      --dash-primary-text: #34d399;
+    }
+
+    body {
+      background-color: var(--dash-bg);
+      color: var(--dash-text);
+      overflow-x: hidden;
+    }
+
+    /* Layout */
+    .dashboard-layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .dash-sidebar {
+      width: 280px;
+      background: var(--dash-card);
+      border-right: 1px solid var(--dash-border);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease;
+    }
+
+    .dash-sidebar-header {
+      padding: 24px;
+      border-bottom: 1px solid var(--dash-border);
+    }
+
+    .dash-sidebar-nav {
+      padding: 24px 16px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .dash-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 16px;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 500;
+      transition: all 0.2s;
+      margin-bottom: 4px;
+      cursor: pointer;
+    }
+
+    .dash-nav-item:hover,
+    .dash-nav-item.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff !important;
+    }
+
+    .dash-nav-item.active {
+      font-weight: 600;
+    }
+
+    .dash-nav-item i {
+      font-size: 1.1rem;
+      width: 20px;
+      text-align: center;
+    }
+
+
+
+    /* Main Content */
+    .dash-main {
+      flex: 1;
+      margin-left: 280px;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      transition: margin-left 0.3s ease;
+    }
+
+    /* Topbar */
+    .dash-topbar {
+      height: 80px;
+      background: var(--dash-card);
+      border-bottom: 1px solid var(--dash-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      position: sticky;
+      top: 0;
+      z-index: 900;
+    }
+
+    .dash-search input {
+      background: var(--dash-bg);
+      border: 1px solid var(--dash-border);
+      border-radius: 99px;
+      padding: 10px 20px 10px 48px;
+      color: var(--dash-text);
+      width: 300px;
+    }
+
+    .dash-search {
+      position: relative;
+    }
+
+    .dash-search i {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--dash-muted);
+    }
+
+    .dash-topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .dash-icon-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--dash-border);
+      background: transparent;
+      color: var(--dash-text);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: 0.2s;
+      position: relative;
+    }
+
+    .dash-icon-btn:hover {
+      background: var(--dash-bg);
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      width: 8px;
+      height: 8px;
+      background: #EF4444;
+      border-radius: 50%;
+    }
+
+    .user-dropdown {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      padding-left: 16px;
+      border-left: 1px solid var(--dash-border);
+      position: relative;
+    }
+
+    .user-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .user-role {
+      font-size: 0.8rem;
+      color: var(--dash-muted);
+    }
+
+    /* Content Area */
+    .dash-content {
+      padding: 40px;
+      flex: 1;
+    }
+
+    .dash-card {
+      background: var(--dash-card);
+      border-radius: var(--dash-radius);
+      border: 1px solid var(--dash-border);
+      box-shadow: var(--dash-shadow);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dash-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    /* Stat Cards */
+    .stat-card {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .stat-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: rgba(15, 107, 87, 0.1);
+      color: var(--dash-primary-text);
+      display: grid;
+      place-items: center;
+      font-size: 1.5rem;
+    }
+
+    [data-theme="dark"] .stat-icon {
+      background: rgba(21, 155, 120, 0.15);
+      color: var(--dash-secondary);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      margin: 8px 0 4px;
+      color: var(--dash-text);
+    }
+
+    .stat-label {
+      color: var(--dash-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-trend {
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      border-radius: 99px;
+    }
+
+    .trend-up {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10B981;
+    }
+
+    /* Charts */
+    .chart-container {
+      width: 100%;
+      height: 300px;
+      position: relative;
+    }
+
+    .svg-chart {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* Tables */
+    .dash-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .dash-table th {
+      text-align: left;
+      padding: 16px;
+      color: var(--dash-muted);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--dash-border);
+    }
+
+    .dash-table td {
+      padding: 16px;
+      border-bottom: 1px solid var(--dash-border);
+      vertical-align: middle;
+      color: var(--dash-text);
+    }
+
+    .dash-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      padding: 6px 12px;
+      border-radius: 99px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .status-active {
+      background: rgba(16, 185, 129, 0.1);
+      color: #10B981;
+    }
+
+    .status-deposit {
+      background: rgba(59, 130, 246, 0.1);
+      color: #3B82F6;
+    }
+
+    /* Allocation Chart */
+    .allocation-item {
+      margin-bottom: 16px;
+    }
+
+    .allocation-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: var(--dash-text);
+    }
+
+    .allocation-bar-bg {
+      height: 8px;
+      background: var(--dash-bg);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .allocation-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+    }
+
+    /* Responsive */
+    .mobile-toggle {
+      display: none;
+    }
+
+
+
+    .dash-sidebar {
+      background: #0F2C25;
+      border-right: none;
+    }
+
+    .dash-content-tab {
+      display: none;
+    }
+
+    .dash-content-tab.active {
+      display: block;
+    }
+
+    .btn-group-responsive {
+      display: flex;
+      gap: 16px;
+    }
+
+    @media (max-width: 1024px) {
+      .dash-sidebar {
+        left: auto;
+        right: 0;
+        transform: translateX(100%);
+      }
+
+      .dash-main {
+        margin-left: 0;
+      }
+
+      .mobile-toggle {
+        display: block;
+      }
+
+      .dash-sidebar.show {
+        transform: translateX(0);
+      }
+
+      .mobile-brand {
+        display: flex !important;
+      }
+
+      .dash-title-wrap {
+        display: none;
+      }
+
+      .dash-topbar {
+        justify-content: space-between;
+      }
+
+      .hide-on-mobile {
+        display: none !important;
+      }
+
+      .user-dropdown.hide-on-mobile {
+        display: none !important;
+      }
+
+      .sidebar-mobile-actions {
+        display: flex !important;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .btn-group-responsive {
+        flex-direction: column;
+      }
+
+      .btn-group-responsive .btn {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dash-content {
+        padding: 24px 16px;
+      }
+
+      .dash-topbar {
+        padding: 0 16px;
+      }
+
+      .dash-search {
+        display: none;
+      }
+
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    html[dir="rtl"] .dash-sidebar {
+      left: auto;
+      right: 0;
+      border-right: none;
+      border-left: 1px solid var(--dash-border);
+    }
+
+    html[dir="rtl"] .dash-main {
+      margin-left: 0;
+      margin-right: 280px;
+    }
+
+    html[dir="rtl"] .dash-search input {
+      padding: 10px 48px 10px 20px;
+    }
+
+    html[dir="rtl"] .dash-search i {
+      left: auto;
+      right: 18px;
+    }
+
+    html[dir="rtl"] .user-dropdown {
+      padding-left: 0;
+      padding-right: 16px;
+      border-left: none;
+      border-right: 1px solid var(--dash-border);
+    }
+
+    html[dir="rtl"] .dash-table th {
+      text-align: right;
+    }
+
+    @media (max-width: 1024px) {
+      html[dir="rtl"] .dash-sidebar {
+        right: auto;
+        left: 0;
+        transform: translateX(-100%);
+      }
+
+      html[dir="rtl"] .dash-main {
+        margin-right: 0;
+      }
+
+      html[dir="rtl"] .dash-sidebar.show {
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="dash-sidebar" id="sidebar">
+      <div class="dash-sidebar-header"
+        style="border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; align-items: center;">
+        <a href="index.html" class="brand hide-on-mobile" style="font-size: 1.5rem; color: #fff;">
+          <div class="brand-icon"><i class="fa-solid fa-leaf"></i></div>
+          LendCircle
+        </a>
+        <button class="dash-icon-btn mobile-toggle"
+          style="color: #fff; margin-left: auto; border-color: rgba(255,255,255,0.2);"
+          onclick="document.getElementById('sidebar').classList.remove('show')">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="dash-sidebar-nav">
+        <div
+          style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: rgba(255,255,255,0.6); margin: 0 0 12px 16px; letter-spacing: 1px;">
+          Menu</div>
+        <a onclick="switchTab('overview', this)" class="dash-nav-item active"><i class="fa-solid fa-border-all"></i>
+          Overview</a>
+        <a onclick="switchTab('portfolio', this)" class="dash-nav-item"><i class="fa-solid fa-chart-pie"></i>
+          Portfolio</a>
+        <a onclick="switchTab('opportunities', this)" class="dash-nav-item"><i
+            class="fa-solid fa-magnifying-glass-chart"></i> Opportunities</a>
+        <a onclick="switchTab('transactions', this)" class="dash-nav-item"><i
+            class="fa-solid fa-money-bill-transfer"></i> Transactions</a>
+
+        <div
+          style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: rgba(255,255,255,0.6); margin: 24px 0 12px 16px; letter-spacing: 1px;">
+          More</div>
+        <a onclick="switchTab('messages', this)" class="dash-nav-item"><i class="fa-solid fa-message"></i> Messages</a>
+        <a onclick="switchTab('settings', this)" class="dash-nav-item"><i class="fa-solid fa-gear"></i> Settings</a>
+      </div>
+
+      <div class="sidebar-mobile-actions"
+        style="display: none; flex-direction: column; padding: 16px 24px; border-top: 1px solid rgba(255,255,255,0.1); gap: 16px; align-items: center;">
+        <div class="user-info"
+          style="display: flex; align-items: center; justify-content: center; gap: 12px; color: #fff; text-align: left; width: 100%;">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=85"
+            class="user-avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+          <div>
+            <div style="font-weight: 600; font-size: 0.95rem;">Sarah Jenkins</div>
+            <div style="font-size: 0.8rem; opacity: 0.8;">Investor Account</div>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 16px; width: 100%;">
+          <button class="dash-icon-btn" onclick="toggleTheme()" title="Toggle Theme"
+            style="color:#fff; border-color:rgba(255,255,255,0.2);"><i class="fa-solid fa-moon"></i></button>
+          <button class="dash-icon-btn" onclick="toggleRTL()" title="Toggle RTL"
+            style="color:#fff; border-color:rgba(255,255,255,0.2);"><i
+              class="fa-solid fa-arrow-right-arrow-left"></i></button>
+        </div>
+      </div>
+
+      <div style="padding: 24px; border-top: 1px solid rgba(255,255,255,0.1);">
+        <a href="index.html" class="dash-nav-item text-danger" style="color: #ef4444 !important;"><i
+            class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="dash-main">
+      <header class="dash-topbar">
+        <div style="display: flex; align-items: center; gap: 24px;">
+          <a href="index.html" class="brand mobile-brand"
+            style="display: none; font-size: 1.5rem; color: var(--dash-primary-text);">
+            <div class="brand-icon"><i class="fa-solid fa-leaf"></i></div>
+            LendCircle
+          </a>
+          <div class="dash-title-wrap">
+            <h2 style="font-size: 1.25rem; margin: 0;" id="page-title">Investor Dashboard</h2>
+            <span style="font-size: 0.85rem; color: var(--dash-muted);" id="page-subtitle">Overview / Portfolio</span>
+          </div>
+        </div>
+
+        <div class="dash-topbar-actions">
+          <div class="dash-search hide-on-mobile">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" placeholder="Search opportunities, transactions...">
+          </div>
+          <button class="dash-icon-btn hide-on-mobile" onclick="toggleTheme()" title="Toggle Theme">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <button class="dash-icon-btn hide-on-mobile" onclick="toggleRTL()" title="Toggle RTL">
+            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+          </button>
+          <button class="dash-icon-btn">
+            <i class="fa-regular fa-bell"></i>
+            <span class="notification-badge"></span>
+          </button>
+          <div class="user-dropdown hide-on-mobile">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=85"
+              alt="User" class="user-avatar">
+            <div class="user-info">
+              <span class="user-name">Sarah Jenkins</span>
+              <span class="user-role">Investor Account</span>
+            </div>
+          </div>
+          <button class="dash-icon-btn mobile-toggle"
+            onclick="document.getElementById('sidebar').classList.toggle('show')">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </header>
+
+      <div class="dash-content">
+        <!-- TAB: Overview -->
+        <div id="tab-overview" class="dash-content-tab active">
+          <!-- Section 1: Welcome -->
+          <div class="dash-card"
+            style="margin-bottom: 32px; background: linear-gradient(135deg, #10231F 0%, #0F6B57 100%); color: #fff; padding: 40px; border: none;">
+            <div
+              style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px;">
+              <div>
+                <span
+                  style="font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; color: var(--accent);">Good
+                  Morning, Sarah</span>
+                <h1
+                  style="font-size: clamp(1.8rem, 3vw, 2.5rem); margin: 8px 0 16px; color: #fff; font-family: var(--font-heading);">
+                  Your investment portfolio at a glance.</h1>
+                <div style="display: inline-flex; align-items: center; gap: 16px;">
+                  <div>
+                    <span
+                      style="display: block; font-size: 0.85rem; color: rgba(255,255,255,0.7); text-transform: uppercase; font-weight: 700;">Portfolio
+                      Value</span>
+                    <strong style="font-size: 1.5rem; font-family: var(--font-heading);">$124,850</strong>
+                  </div>
+                  <div style="width: 1px; height: 30px; background: rgba(255,255,255,0.2);"></div>
+                  <div>
+                    <span
+                      style="display: inline-flex; align-items: center; gap: 4px; background: rgba(16, 185, 129, 0.2); color: #34D399; padding: 4px 8px; border-radius: 4px; font-weight: 700; font-size: 0.85rem;">
+                      <i class="fa-solid fa-arrow-up"></i> 8.7% annualized return
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <br>
+            <!-- Section 2: Stats -->
+            <div class="grid-4" style="margin-bottom: 32px;">
+              <div class="dash-card">
+                <div class="stat-card">
+                  <div>
+                    <span class="stat-label">Portfolio Value</span>
+                    <div class="stat-value">$124,850</div>
+                    <span class="stat-trend trend-up"><i class="fa-solid fa-arrow-up"></i> 8.7% All Time</span>
+                  </div>
+                  <div class="stat-icon"><i class="fa-solid fa-wallet"></i></div>
+                </div>
+              </div>
+              <div class="dash-card">
+                <div class="stat-card">
+                  <div>
+                    <span class="stat-label">Total Invested</span>
+                    <div class="stat-value">$110,000</div>
+                    <span class="stat-trend" style="background: rgba(59, 130, 246, 0.1); color: #3B82F6;"><i
+                        class="fa-solid fa-arrow-right-arrow-left"></i> Principal</span>
+                  </div>
+                  <div class="stat-icon"><i class="fa-solid fa-money-bill-transfer"></i></div>
+                </div>
+              </div>
+              <div class="dash-card">
+                <div class="stat-card">
+                  <div>
+                    <span class="stat-label">Returns Earned</span>
+                    <div class="stat-value">$14,850</div>
+                    <span class="stat-trend trend-up"><i class="fa-solid fa-arrow-trend-up"></i> Net Profit</span>
+                  </div>
+                  <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
+                </div>
+              </div>
+              <div class="dash-card">
+                <div class="stat-card">
+                  <div>
+                    <span class="stat-label">Active Investments</span>
+                    <div class="stat-value">14</div>
+                    <span class="stat-trend" style="background: rgba(139, 92, 246, 0.1); color: #8B5CF6;"><i
+                        class="fa-solid fa-briefcase"></i> Diversified</span>
+                  </div>
+                  <div class="stat-icon"><i class="fa-solid fa-city"></i></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 3 & 4: Performance & Allocation -->
+            <div class="grid-2" style="gap: 32px; margin-bottom: 32px; align-items: start;">
+              <!-- Performance Chart -->
+              <div class="dash-card">
+                <div class="dash-card-header">
+                  <h3 style="margin: 0; font-size: 1.25rem;">Portfolio Performance</h3>
+                  <div
+                    style="display: flex; gap: 8px; background: var(--dash-bg); padding: 4px; border-radius: 8px; border: 1px solid var(--dash-border);">
+                    <button class="btn"
+                      style="padding: 4px 12px; font-size: 0.85rem; background: transparent; border: none; font-weight: 600;">1M</button>
+                    <button class="btn"
+                      style="padding: 4px 12px; font-size: 0.85rem; background: transparent; border: none; font-weight: 600;">3M</button>
+                    <button class="btn"
+                      style="padding: 4px 12px; font-size: 0.85rem; background: transparent; border: none; font-weight: 600;">6M</button>
+                    <button class="btn"
+                      style="padding: 4px 12px; font-size: 0.85rem; background: transparent; border: none; font-weight: 600;">1Y</button>
+                    <button class="btn"
+                      style="padding: 4px 12px; font-size: 0.85rem; background: var(--dash-card); border: 1px solid var(--dash-border); box-shadow: 0 2px 4px rgba(0,0,0,0.05); font-weight: 600; color: var(--dash-primary-text);">All</button>
+                  </div>
+                </div>
+                <div class="chart-container">
+                  <svg class="svg-chart" viewBox="0 0 800 250" preserveAspectRatio="none">
+                    <line x1="0" y1="50" x2="800" y2="50" stroke="var(--dash-border)" stroke-width="1"
+                      stroke-dasharray="4" />
+                    <line x1="0" y1="100" x2="800" y2="100" stroke="var(--dash-border)" stroke-width="1"
+                      stroke-dasharray="4" />
+                    <line x1="0" y1="150" x2="800" y2="150" stroke="var(--dash-border)" stroke-width="1"
+                      stroke-dasharray="4" />
+                    <line x1="0" y1="200" x2="800" y2="200" stroke="var(--dash-border)" stroke-width="1"
+                      stroke-dasharray="4" />
+                    <defs>
+                      <linearGradient id="invGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#c9974d" stop-opacity="0.3" />
+                        <stop offset="100%" stop-color="#c9974d" stop-opacity="0" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M0,200 C100,190 200,170 300,130 C400,90 500,100 600,60 C700,20 800,40 800,40 L800,250 L0,250 Z"
+                      fill="url(#invGradient)" />
+                    <path d="M0,200 C100,190 200,170 300,130 C400,90 500,100 600,60 C700,20 800,40 800,40" fill="none"
+                      stroke="#c9974d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Allocation -->
+              <div class="dash-card" style="height: 100%;">
+                <div class="dash-card-header">
+                  <h3 style="margin: 0; font-size: 1.25rem;">Portfolio Allocation</h3>
+                </div>
+                <div>
+                  <div class="allocation-item">
+                    <div class="allocation-header">
+                      <span>Food & Beverage</span>
+                      <span>28%</span>
+                    </div>
+                    <div class="allocation-bar-bg">
+                      <div class="allocation-bar-fill" style="width: 28%; background: #4CAF50;"></div>
+                    </div>
+                  </div>
+                  <div class="allocation-item">
+                    <div class="allocation-header">
+                      <span>Technology</span>
+                      <span>24%</span>
+                    </div>
+                    <div class="allocation-bar-bg">
+                      <div class="allocation-bar-fill" style="width: 24%; background: #2196F3;"></div>
+                    </div>
+                  </div>
+                  <div class="allocation-item">
+                    <div class="allocation-header">
+                      <span>Retail</span>
+                      <span>18%</span>
+                    </div>
+                    <div class="allocation-bar-bg">
+                      <div class="allocation-bar-fill" style="width: 18%; background: #FF9800;"></div>
+                    </div>
+                  </div>
+                  <div class="allocation-item">
+                    <div class="allocation-header">
+                      <span>Professional Services</span>
+                      <span>17%</span>
+                    </div>
+                    <div class="allocation-bar-bg">
+                      <div class="allocation-bar-fill" style="width: 17%; background: #9C27B0;"></div>
+                    </div>
+                  </div>
+                  <div class="allocation-item">
+                    <div class="allocation-header">
+                      <span>Health & Wellness</span>
+                      <span>13%</span>
+                    </div>
+                    <div class="allocation-bar-bg">
+                      <div class="allocation-bar-fill" style="width: 13%; background: #E91E63;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 5: Active Investments -->
+            <div class="dash-card" style="margin-bottom: 32px; overflow-x: auto;">
+              <div class="dash-card-header">
+                <h3 style="margin: 0; font-size: 1.25rem;">Active Investments</h3>
+                <button class="btn btn-outline" style="padding: 6px 16px; font-size: 0.85rem;">View Portfolio</button>
+              </div>
+              <table class="dash-table">
+                <thead>
+                  <tr>
+                    <th>Business</th>
+                    <th>Category</th>
+                    <th>Invested</th>
+                    <th>Current Value</th>
+                    <th>Return</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div style="display: flex; align-items: center; gap: 12px;">
+                        <img
+                          src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=64&h=64&q=80"
+                          alt="Icon" style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover;">
+                        <strong style="color: var(--dash-text);">Urban Harvest Café</strong>
+                      </div>
+                    </td>
+                    <td>Food & Beverage</td>
+                    <td>$12,000</td>
+                    <td style="font-weight: 600;">$13,040</td>
+                    <td style="color: #10B981; font-weight: 600;">+8.7%</td>
+                    <td><span class="status-badge status-active">Active</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div style="display: flex; align-items: center; gap: 12px;">
+                        <img
+                          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=64&h=64&q=80"
+                          alt="Icon" style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover;">
+                        <strong style="color: var(--dash-text);">Northside Design Studio</strong>
+                      </div>
+                    </td>
+                    <td>Creative Services</td>
+                    <td>$8,500</td>
+                    <td style="font-weight: 600;">$9,120</td>
+                    <td style="color: #10B981; font-weight: 600;">+7.3%</td>
+                    <td><span class="status-badge status-active">Active</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div style="display: flex; align-items: center; gap: 12px;">
+                        <img
+                          src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=64&h=64&q=80"
+                          alt="Icon" style="width: 40px; height: 40px; border-radius: 8px; object-fit: cover;">
+                        <strong style="color: var(--dash-text);">GreenRoute Delivery</strong>
+                      </div>
+                    </td>
+                    <td>Logistics & Transport</td>
+                    <td>$15,000</td>
+                    <td style="font-weight: 600;">$16,240</td>
+                    <td style="color: #10B981; font-weight: 600;">+8.2%</td>
+                    <td><span class="status-badge status-active">Active</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Section 8: Recent Transactions -->
+            <div class="grid-2" style="gap: 32px; margin-bottom: 32px; align-items: start;">
+              <div class="dash-card">
+                <div class="dash-card-header">
+                  <h3 style="margin: 0; font-size: 1.25rem;">Upcoming Investor Payments</h3>
+                </div>
+                <div style="display: flex; gap: 24px; align-items: center; margin-bottom: 24px;">
+                  <div>
+                    <span style="display: block; font-size: 0.85rem; color: var(--dash-muted); margin-bottom: 4px;">Next
+                      Payment</span>
+                    <strong
+                      style="font-size: 1.5rem; color: var(--dash-primary-text); font-family: var(--font-heading);">$3,840</strong>
+                  </div>
+                  <div style="width: 1px; height: 40px; background: var(--dash-border);"></div>
+                  <div>
+                    <span
+                      style="display: block; font-size: 0.85rem; color: var(--dash-muted); margin-bottom: 4px;">Expected
+                      Date</span>
+                    <strong style="font-size: 1.1rem; color: var(--dash-text);">March 15</strong>
+                  </div>
+                </div>
+                <div class="timeline" style="margin-top: 0;">
+                  <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <strong style="display: block; margin-bottom: 4px; color: var(--dash-text);">Urban Harvest
+                      Café</strong>
+                    <div style="display: flex; justify-content: space-between;">
+                      <span style="font-size: 0.85rem; color: var(--dash-muted);">Mar 15, 2026</span>
+                      <span style="font-size: 0.9rem; font-weight: 600; color: #10B981;">+$450.00</span>
+                    </div>
+                  </div>
+                  <div class="timeline-item" style="margin-bottom: 0;">
+                    <div class="timeline-marker"></div>
+                    <strong style="display: block; margin-bottom: 4px; color: var(--dash-text);">Northside Design
+                      Studio</strong>
+                    <div style="display: flex; justify-content: space-between;">
+                      <span style="font-size: 0.85rem; color: var(--dash-muted);">Mar 18, 2026</span>
+                      <span style="font-size: 0.9rem; font-weight: 600; color: #10B981;">+$285.00</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dash-card" style="overflow-x: auto;">
+                <div class="dash-card-header">
+                  <h3 style="margin: 0; font-size: 1.25rem;">Recent Transactions</h3>
+                </div>
+                <table class="dash-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Type</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Feb 28</td>
+                      <td><span class="status-badge status-deposit">Deposit</span></td>
+                      <td style="font-weight: 600; text-align: right;">$5,000.00</td>
+                    </tr>
+                    <tr>
+                      <td>Feb 25</td>
+                      <td><span class="status-badge status-active">Repayment</span></td>
+                      <td style="font-weight: 600; text-align: right; color: #10B981;">+$450.00</td>
+                    </tr>
+                    <tr>
+                      <td>Feb 20</td>
+                      <td><span class="status-badge"
+                          style="background: rgba(245, 158, 11, 0.1); color: #F59E0B;">Investment</span></td>
+                      <td style="font-weight: 600; text-align: right;">-$2,500.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Section 9: CTA -->
+            <div class="dash-card"
+              style="background: url('assets/images/dashboard.jpg') center/cover no-repeat; text-align: center; padding: 60px; border: none; position: relative;">
+              <div
+                style="position: absolute; inset: 0; background: linear-gradient(to right, rgba(15, 44, 37, 0.95), rgba(15, 44, 37, 0.85)); border-radius: var(--dash-radius);">
+              </div>
+              <div style="position: relative; z-index: 2;">
+                <h2 style="color: #fff; font-family: var(--font-heading); margin-bottom: 16px;">Discover Your Next
+                  Investment Opportunity.</h2>
+                <p style="color: rgba(255,255,255,0.7); max-width: 500px; margin: 0 auto 32px; font-size: 1.1rem;">
+                  Explore
+                  businesses seeking funding and build a diversified portfolio.</p>
+                <a href="invest.html" class="btn btn-accent" style="padding: 12px 32px;">Explore Opportunities</a>
+              </div>
+            </div>
+          </div>
+
+        </div> <!-- End Overview Tab -->
+
+        <!-- Other Tabs Placeholders -->
+        <div id="tab-portfolio" class="dash-content-tab">
+          <h2 style="margin-bottom: 24px;">Portfolio</h2>
+          <div class="dash-card">
+            <h4 style="margin-bottom: 16px;">Portfolio Overview</h4>
+            <p style="color: var(--dash-muted); margin-bottom: 24px;">A quick glance at your current investments and
+              allocations.</p>
+            <div class="grid-2">
+              <div style="padding: 16px; border: 1px solid var(--dash-border); border-radius: 12px;">
+                <strong>Total Invested:</strong> <span style="float: right;">$110,000</span>
+              </div>
+              <div style="padding: 16px; border: 1px solid var(--dash-border); border-radius: 12px;">
+                <strong>Total Returns:</strong> <span style="float: right; color: #10B981;">+$14,850</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-opportunities" class="dash-content-tab">
+          <h2 style="margin-bottom: 24px;">Opportunities</h2>
+          <div class="dash-card">
+            <h4 style="margin-bottom: 16px;">Recommended For You</h4>
+            <div
+              style="display: flex; gap: 16px; border-bottom: 1px solid var(--dash-border); padding-bottom: 16px; margin-bottom: 16px;">
+              <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=100&q=85"
+                alt="Biz" style="width: 64px; height: 64px; border-radius: 12px; object-fit: cover;">
+              <div>
+                <h5 style="margin: 0 0 4px;">Artisan Bakes</h5>
+                <p style="margin: 0 0 8px; color: var(--dash-muted); font-size: 0.9rem;">Looking for $75,000 for
+                  expansion. 12% expected return.</p>
+                <button class="btn btn-primary" style="padding: 6px 16px; font-size: 0.85rem;">View Details</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-transactions" class="dash-content-tab">
+          <h2 style="margin-bottom: 24px;">Transactions</h2>
+          <div class="dash-card">
+            <h4 style="margin-bottom: 16px;">Transaction History</h4>
+            <table class="dash-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Feb 28, 2026</td>
+                  <td>Account Deposit</td>
+                  <td style="font-weight: 600;">$5,000.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="tab-messages" class="dash-content-tab">
+          <h2 style="margin-bottom: 24px;">Messages</h2>
+          <div class="dash-card">
+            <div
+              style="display: flex; gap: 16px; border-bottom: 1px solid var(--dash-border); padding-bottom: 16px; margin-bottom: 16px;">
+              <div
+                style="width: 48px; height: 48px; background: rgba(15, 107, 87, 0.1); color: var(--dash-primary-text); border-radius: 50%; display: grid; place-items: center;">
+                <i class="fa-solid fa-file-invoice"></i>
+              </div>
+              <div>
+                <h5 style="margin: 0 0 4px;">Tax Documents Available</h5>
+                <p style="margin: 0; color: var(--dash-muted); font-size: 0.9rem;">Your 1099 form for the previous year
+                  is now available to download.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="tab-settings" class="dash-content-tab">
+          <h2 style="margin-bottom: 24px;">Settings</h2>
+          <div class="dash-card">
+            <h4 style="margin-bottom: 16px;">Account Settings</h4>
+            <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
+              <input type="text" class="form-control" value="Sarah Jenkins"
+                style="padding: 12px; border: 1px solid var(--dash-border); border-radius: 8px;">
+              <input type="email" class="form-control" value="sarah@investorgroup.com"
+                style="padding: 12px; border: 1px solid var(--dash-border); border-radius: 8px;">
+              <button class="btn btn-primary" style="padding: 12px;">Update Settings</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script>
+    function switchTab(tabId, element) {
+      // Hide all tabs
+      document.querySelectorAll('.dash-content-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      // Remove active from all nav items
+      document.querySelectorAll('.dash-nav-item').forEach(nav => {
+        nav.classList.remove('active');
+      });
+
+      // Show selected tab
+      document.getElementById('tab-' + tabId).classList.add('active');
+      element.classList.add('active');
+
+      // Update Title
+      document.getElementById('page-subtitle').innerText = element.innerText + " / Details";
+
+      // Close sidebar on mobile
+      if (window.innerWidth <= 1024) {
+        document.getElementById('sidebar').classList.remove('show');
+      }
+    }
+  </script>
+</body>
+
+</html>

@@ -170,42 +170,40 @@
           <h2 class="section-heading">How LendCircle Works</h2>
           <p class="lead" style="margin: 0 auto; max-width: 600px;">From application to funding in three simple steps — designed to be transparent, fast, and fair.</p>
         </div>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; position: relative;">
-          <!-- Connector line -->
-          <div style="position: absolute; top: 44px; left: calc(16.5% + 16px); right: calc(16.5% + 16px); height: 2px; background: linear-gradient(to right, var(--accent), var(--accent)); opacity: 0.3; display: none;" class="desktop-connector"></div>
+        <div class="how-it-works-grid">
 
           <!-- Step 1 -->
-          <div style="text-align: center; padding: 40px 32px; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); transition: var(--transition); position: relative;"
+          <div class="step-card"
             onmouseover="this.style.transform='translateY(-8px)'; this.style.borderColor='var(--accent)'; this.style.boxShadow='var(--shadow)';"
             onmouseout="this.style.transform=''; this.style.borderColor='var(--border)'; this.style.boxShadow='';">
+            <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-weight: 800; font-size: 0.75rem; padding: 4px 12px; border-radius: 99px; letter-spacing: 1px;">STEP 01</div>
             <div style="width: 88px; height: 88px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: 50%; display: grid; place-items: center; margin: 0 auto 28px; box-shadow: 0 12px 32px rgba(15,44,37,0.25);">
               <i class="fa-solid fa-file-signature" style="font-size: 2rem; color: var(--accent);"></i>
             </div>
-            <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-weight: 800; font-size: 0.75rem; padding: 4px 12px; border-radius: 99px; letter-spacing: 1px;">STEP 01</div>
             <h3 style="font-size: 1.4rem; margin-bottom: 16px;">Apply Online</h3>
             <p class="text-muted" style="margin: 0; font-size: 0.95rem; line-height: 1.7;">Complete our 10-minute digital application. No paperwork, no branch visits — just a simple, secure online form.</p>
           </div>
 
           <!-- Step 2 -->
-          <div style="text-align: center; padding: 40px 32px; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); transition: var(--transition); position: relative; transform: translateY(20px);"
-            onmouseover="this.style.transform='translateY(12px)'; this.style.borderColor='var(--accent)'; this.style.boxShadow='var(--shadow)';"
-            onmouseout="this.style.transform='translateY(20px)'; this.style.borderColor='var(--border)'; this.style.boxShadow='';">
+          <div class="step-card"
+            onmouseover="this.style.transform='translateY(-8px)'; this.style.borderColor='var(--accent)'; this.style.boxShadow='var(--shadow)';"
+            onmouseout="this.style.transform=''; this.style.borderColor='var(--border)'; this.style.boxShadow='';">
+            <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-weight: 800; font-size: 0.75rem; padding: 4px 12px; border-radius: 99px; letter-spacing: 1px;">STEP 02</div>
             <div style="width: 88px; height: 88px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: 50%; display: grid; place-items: center; margin: 0 auto 28px; box-shadow: 0 12px 32px rgba(15,44,37,0.25);">
               <i class="fa-solid fa-magnifying-glass-chart" style="font-size: 2rem; color: var(--accent);"></i>
             </div>
-            <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-weight: 800; font-size: 0.75rem; padding: 4px 12px; border-radius: 99px; letter-spacing: 1px;">STEP 02</div>
             <h3 style="font-size: 1.4rem; margin-bottom: 16px;">Get Verified</h3>
             <p class="text-muted" style="margin: 0; font-size: 0.95rem; line-height: 1.7;">Our team reviews your application within 48 hours. We assess your business health, not just your credit score.</p>
           </div>
 
           <!-- Step 3 -->
-          <div style="text-align: center; padding: 40px 32px; background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); transition: var(--transition); position: relative;"
+          <div class="step-card"
             onmouseover="this.style.transform='translateY(-8px)'; this.style.borderColor='var(--accent)'; this.style.boxShadow='var(--shadow)';"
             onmouseout="this.style.transform=''; this.style.borderColor='var(--border)'; this.style.boxShadow='';">
+            <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-weight: 800; font-size: 0.75rem; padding: 4px 12px; border-radius: 99px; letter-spacing: 1px;">STEP 03</div>
             <div style="width: 88px; height: 88px; background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: 50%; display: grid; place-items: center; margin: 0 auto 28px; box-shadow: 0 12px 32px rgba(15,44,37,0.25);">
               <i class="fa-solid fa-rocket" style="font-size: 2rem; color: var(--accent);"></i>
             </div>
-            <div style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--accent); color: #fff; font-weight: 800; font-size: 0.75rem; padding: 4px 12px; border-radius: 99px; letter-spacing: 1px;">STEP 03</div>
             <h3 style="font-size: 1.4rem; margin-bottom: 16px;">Receive Funding</h3>
             <p class="text-muted" style="margin: 0; font-size: 0.95rem; line-height: 1.7;">Once funded by our investor community, capital is transferred directly to your business account. Grow boldly.</p>
           </div>
@@ -225,52 +223,52 @@
           <h2 class="section-heading">What Our Members Say</h2>
           <p class="lead" style="margin: 0 auto; max-width: 600px;">Real stories from real people building their futures with LendCircle.</p>
         </div>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
+        <div class="testimonials-grid">
 
           <!-- Testimonial 1 -->
-          <div class="card premium-card" style="padding: 40px; display: flex; flex-direction: column; gap: 24px;">
+          <div class="testimonial-card">
             <div style="display: flex; gap: 4px; color: var(--accent); font-size: 1.1rem;">
               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
             </div>
-            <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text); margin: 0; font-style: italic;">"LendCircle funded our café expansion in just 3 days. The process was incredibly smooth and our investors were genuinely rooting for our success."</p>
-            <div style="display: flex; align-items: center; gap: 16px; margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border);">
+            <p style="flex: 1; font-size: 1.05rem; line-height: 1.7; color: var(--text); margin: 0; font-style: italic;">"LendCircle funded our café expansion in just 3 days. The process was incredibly smooth and our investors were genuinely rooting for our success."</p>
+            <div class="testimonial-author">
               <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=80&h=80&q=80"
-                alt="Priya Sharma" style="width: 52px; height: 52px; border-radius: 50%; object-fit: cover; flex-shrink: 0;">
+                alt="Priya Sharma">
               <div>
-                <strong style="display: block; font-size: 0.95rem;">Priya Sharma</strong>
-                <span style="font-size: 0.85rem; color: var(--text-muted);">Urban Harvest Café, San Francisco</span>
+                <strong>Priya Sharma</strong>
+                <span>Urban Harvest Café, San Francisco</span>
               </div>
             </div>
           </div>
 
           <!-- Testimonial 2 -->
-          <div class="card premium-card" style="padding: 40px; display: flex; flex-direction: column; gap: 24px; transform: translateY(-20px);">
+          <div class="testimonial-card">
             <div style="display: flex; gap: 4px; color: var(--accent); font-size: 1.1rem;">
               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
             </div>
-            <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text); margin: 0; font-style: italic;">"As an investor, I love being able to support real local businesses. My returns have consistently outperformed my stock portfolio. Absolutely recommend."</p>
-            <div style="display: flex; align-items: center; gap: 16px; margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border);">
+            <p style="flex: 1; font-size: 1.05rem; line-height: 1.7; color: var(--text); margin: 0; font-style: italic;">"As an investor, I love being able to support real local businesses. My returns have consistently outperformed my stock portfolio. Absolutely recommend."</p>
+            <div class="testimonial-author">
               <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&h=80&q=80"
-                alt="Marcus Reid" style="width: 52px; height: 52px; border-radius: 50%; object-fit: cover; flex-shrink: 0;">
+                alt="Marcus Reid">
               <div>
-                <strong style="display: block; font-size: 0.95rem;">Marcus Reid</strong>
-                <span style="font-size: 0.85rem; color: var(--text-muted);">Investor, Portfolio of 12 Businesses</span>
+                <strong>Marcus Reid</strong>
+                <span>Investor, Portfolio of 12 Businesses</span>
               </div>
             </div>
           </div>
 
           <!-- Testimonial 3 -->
-          <div class="card premium-card" style="padding: 40px; display: flex; flex-direction: column; gap: 24px;">
+          <div class="testimonial-card">
             <div style="display: flex; gap: 4px; color: var(--accent); font-size: 1.1rem;">
               <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
             </div>
-            <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text); margin: 0; font-style: italic;">"The transparency is unmatched. I can see exactly where every dollar is going and track my repayment schedule in real time. This is the future of lending."</p>
-            <div style="display: flex; align-items: center; gap: 16px; margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border);">
+            <p style="flex: 1; font-size: 1.05rem; line-height: 1.7; color: var(--text); margin: 0; font-style: italic;">"The transparency is unmatched. I can see exactly where every dollar is going and track my repayment schedule in real time. This is the future of lending."</p>
+            <div class="testimonial-author">
               <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=80&h=80&q=80"
-                alt="Lena Kovács" style="width: 52px; height: 52px; border-radius: 50%; object-fit: cover; flex-shrink: 0;">
+                alt="Lena Kovács">
               <div>
-                <strong style="display: block; font-size: 0.95rem;">Lena Kovács</strong>
-                <span style="font-size: 0.85rem; color: var(--text-muted);">GreenRoute Delivery, Austin</span>
+                <strong>Lena Kovács</strong>
+                <span>GreenRoute Delivery, Austin</span>
               </div>
             </div>
           </div>

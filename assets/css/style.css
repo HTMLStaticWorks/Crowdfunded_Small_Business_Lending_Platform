@@ -378,6 +378,94 @@ html[dir="rtl"] .scroll-top { right: auto; left: 30px; }
 
 
 
+/* ===================== Home-2: How It Works ===================== */
+.how-it-works-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  align-items: stretch;
+}
+.step-card {
+  text-align: center;
+  padding: 40px 32px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@media (max-width: 1023px) {
+  .how-it-works-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+}
+
+/* ===================== Home-2: Testimonials ===================== */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  align-items: stretch;
+}
+.testimonial-card {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+.testimonial-author {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+  flex-shrink: 0;
+}
+.testimonial-author img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.testimonial-author strong {
+  display: block;
+  font-size: 0.95rem;
+}
+.testimonial-author span {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+@media (max-width: 1023px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+    margin: 0 auto;
+    justify-items: center;
+  }
+  .testimonial-card {
+    width: 100%;
+    text-align: center;
+  }
+  .testimonial-card > div:first-child {
+    justify-content: center;
+  }
+  .testimonial-author {
+    justify-content: center;
+  }
+}
+
 /* ===================== ITEM 3: Contact form – mobile single-column ===================== */
 @media (max-width: 768px) {
   .contact-form-grid {

@@ -674,13 +674,12 @@
             </div>
             <br>
             <!-- Section 2: Stats -->
-            <div class="grid-4" style="margin-bottom: 32px;">
+            <div class="dash-stat-grid" style="margin-bottom: 32px;">
               <div class="dash-card">
                 <div class="stat-card">
                   <div>
                     <span class="stat-label">Portfolio Value</span>
                     <div class="stat-value">$124,850</div>
-                    <span class="stat-trend trend-up"><i class="fa-solid fa-arrow-up"></i> 8.7% All Time</span>
                   </div>
                   <div class="stat-icon"><i class="fa-solid fa-wallet"></i></div>
                 </div>
@@ -688,10 +687,9 @@
               <div class="dash-card">
                 <div class="stat-card">
                   <div>
-                    <span class="stat-label">Total Invested</span>
+                    <span class="stat-label">Total of Invested</span>
                     <div class="stat-value">$110,000</div>
-                    <span class="stat-trend" style="background: rgba(59, 130, 246, 0.1); color: #3B82F6;"><i
-                        class="fa-solid fa-arrow-right-arrow-left"></i> Principal</span>
+
                   </div>
                   <div class="stat-icon"><i class="fa-solid fa-money-bill-transfer"></i></div>
                 </div>
@@ -701,7 +699,6 @@
                   <div>
                     <span class="stat-label">Returns Earned</span>
                     <div class="stat-value">$14,850</div>
-                    <span class="stat-trend trend-up"><i class="fa-solid fa-arrow-trend-up"></i> Net Profit</span>
                   </div>
                   <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
                 </div>
@@ -711,8 +708,7 @@
                   <div>
                     <span class="stat-label">Active Investments</span>
                     <div class="stat-value">14</div>
-                    <span class="stat-trend" style="background: rgba(139, 92, 246, 0.1); color: #8B5CF6;"><i
-                        class="fa-solid fa-briefcase"></i> Diversified</span>
+
                   </div>
                   <div class="stat-icon"><i class="fa-solid fa-city"></i></div>
                 </div>
@@ -720,7 +716,8 @@
             </div>
 
             <!-- Section 3 & 4: Performance & Allocation -->
-            <div class="grid-2" style="gap: 32px; margin-bottom: 32px; align-items: start;">
+            <div class="grid-2 dash-perf-grid" style="gap: 32px; margin-bottom: 32px; align-items: start;">
+
               <!-- Performance Chart -->
               <div class="dash-card">
                 <div class="dash-card-header">
@@ -990,11 +987,13 @@
             <p style="color: var(--dash-muted); margin-bottom: 24px;">A quick glance at your current investments and
               allocations.</p>
             <div class="grid-2">
-              <div style="padding: 16px; border: 1px solid var(--dash-border); border-radius: 12px;">
-                <strong>Total Invested:</strong> <span style="float: right;">$110,000</span>
+              <div style="padding: 16px; border: 1px solid var(--dash-border); border-radius: 12px; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+                <strong>Total Invested</strong>
+                <span style="font-size: 1.1rem; font-weight: 700;">$110,000</span>
               </div>
-              <div style="padding: 16px; border: 1px solid var(--dash-border); border-radius: 12px;">
-                <strong>Total Returns:</strong> <span style="float: right; color: #10B981;">+$14,850</span>
+              <div style="padding: 16px; border: 1px solid var(--dash-border); border-radius: 12px; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+                <strong>Total Returns</strong>
+                <span style="font-size: 1.1rem; font-weight: 700; color: #10B981;">+$14,850</span>
               </div>
             </div>
           </div>
@@ -1062,14 +1061,33 @@
         <div id="tab-settings" class="dash-content-tab">
           <h2 style="margin-bottom: 24px;">Settings</h2>
           <div class="dash-card">
-            <h4 style="margin-bottom: 16px;">Account Settings</h4>
-            <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
-              <input type="text" class="form-control" value="Sarah Jenkins"
-                style="padding: 12px; border: 1px solid var(--dash-border); border-radius: 8px;">
-              <input type="email" class="form-control" value="sarah@investorgroup.com"
-                style="padding: 12px; border: 1px solid var(--dash-border); border-radius: 8px;">
-              <button class="btn btn-primary" style="padding: 12px;">Update Settings</button>
-            </div>
+            <h4 style="margin-bottom: 24px;">Account Settings</h4>
+            <form class="settings-form" onsubmit="return false;">
+              <div class="settings-field">
+                <label class="settings-label">Full Name</label>
+                <input type="text" class="form-control" value="Sarah Jenkins" placeholder="Your full name">
+              </div>
+              <div class="settings-field">
+                <label class="settings-label">Email Address</label>
+                <input type="email" class="form-control" value="sarah@investorgroup.com" placeholder="your@email.com">
+              </div>
+              <div class="settings-field">
+                <label class="settings-label">Phone Number</label>
+                <input type="tel" class="form-control" value="+1 (555) 000-0000" placeholder="Phone number">
+              </div>
+              <div class="settings-field">
+                <label class="settings-label">Notification Preferences</label>
+                <select class="form-control" style="-webkit-appearance: none; appearance: none;">
+                  <option>Email &amp; SMS</option>
+                  <option>Email Only</option>
+                  <option>SMS Only</option>
+                  <option>None</option>
+                </select>
+              </div>
+              <div>
+                <button class="btn btn-primary" style="padding: 12px 32px;">Update Settings</button>
+              </div>
+            </form>
           </div>
         </div>
 

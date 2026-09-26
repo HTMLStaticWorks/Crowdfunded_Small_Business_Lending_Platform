@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --primary: #0f2c25;
   --primary-text: var(--primary);
   --primary-light: #1a4a3e;
@@ -269,9 +269,9 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: 700; lin
 .footer .social-icon:hover { color: #fff !important; }
 
 /* 5. Scroll to top button */
-.scroll-top { position: fixed; bottom: 30px; right: 30px; width: 44px; height: 44px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; justify-content: center; align-items: center; cursor: pointer; opacity: 0; visibility: hidden; transition: 0.3s; z-index: 999; border: none; box-shadow: var(--shadow-sm); }
-.scroll-top.visible { opacity: 1; visibility: visible; }
-.scroll-top:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.scroll-top { position: fixed; bottom: 30px; right: 30px; width: 48px; height: 48px; border-radius: 50%; background: var(--accent); color: #fff; display: none; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; z-index: 9999; border: none; box-shadow: var(--shadow); }
+.scroll-top:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+html[dir="rtl"] .scroll-top { right: auto; left: 30px; }
 
 /* 6. Hamburger Menu */
 .hamburger { display: none; background: transparent; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
@@ -377,3 +377,153 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); font-weight: 700; lin
 }
 
 
+
+/* ===================== ITEM 3: Contact form – mobile single-column ===================== */
+@media (max-width: 768px) {
+  .contact-form-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ===================== ITEM 4: Dashboard stat cards equal size ===================== */
+.dash-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.dash-stat-grid .dash-card {
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+@media (max-width: 1024px) {
+  .dash-stat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .dash-stat-grid { grid-template-columns: 1fr; }
+}
+
+/* ===================== ITEM 5: Dashboard mobile – performance + allocation stack ===================== */
+@media (max-width: 1024px) {
+  .dash-perf-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .dash-perf-grid > * {
+    width: 100%;
+  }
+}
+
+/* ===================== ITEM 6: Dashboard Settings field alignment (2x2) ===================== */
+.settings-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 800px;
+}
+.settings-form > div:last-child {
+  grid-column: 1 / -1;
+}
+@media (max-width: 640px) {
+  .settings-form {
+    grid-template-columns: 1fr;
+  }
+}
+.settings-form .settings-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.settings-form .settings-label {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--dash-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.settings-form .form-control {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--dash-border);
+  border-radius: 10px;
+  background: var(--dash-bg);
+  color: var(--dash-text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: 0.2s;
+}
+.settings-form .form-control:focus {
+  outline: none;
+  border-color: var(--dash-primary);
+  box-shadow: 0 0 0 4px rgba(15,107,87,0.1);
+}
+.settings-form .btn-primary {
+  align-self: flex-start;
+  padding: 12px 32px;
+}
+
+/* ===================== ITEM 7: RTL portfolio menu text alignment ===================== */
+html[dir="rtl"] .dash-nav-item {
+  text-align: right;
+  direction: rtl;
+}
+html[dir="rtl"] .dash-nav-item i {
+  order: -1;
+}
+html[dir="rtl"] .dash-content-tab {
+  text-align: right;
+  direction: rtl;
+}
+html[dir="rtl"] .dash-sidebar-nav {
+  direction: rtl;
+}
+html[dir="rtl"] .dash-sidebar-nav > div {
+  text-align: right;
+  padding-right: 16px;
+  padding-left: 0;
+}
+
+/* ===================== ITEM 8: Login RTL investor toggle alignment ===================== */
+html[dir="rtl"] .account-toggle {
+  direction: ltr;
+}
+html[dir="rtl"] .account-toggle-btn {
+  direction: rtl;
+}
+html[dir="rtl"] .auth-card {
+  direction: rtl;
+  text-align: right;
+}
+html[dir="rtl"] .auth-card-header {
+  text-align: center;
+}
+html[dir="rtl"] .field-label {
+  text-align: right;
+}
+html[dir="rtl"] .field-options {
+  flex-direction: row-reverse;
+}
+html[dir="rtl"] .remember-label {
+  flex-direction: row-reverse;
+}
+
+/* ===================== ITEM 7+8: Signup RTL alignment ===================== */
+html[dir="rtl"] .type-selector {
+  direction: ltr;
+}
+html[dir="rtl"] .type-btn {
+  text-align: right;
+  direction: rtl;
+}
+
+/* ===================== ITEM 6: Profile section RTL number left side ===================== */
+html[dir="rtl"] input[type="tel"] {
+  text-align: right;
+  direction: ltr;
+}
+
+/* RTL: Portfolio stat card value before label */
+html[dir="rtl"] .portfolio-stat-card {
+  flex-direction: row-reverse;
+}

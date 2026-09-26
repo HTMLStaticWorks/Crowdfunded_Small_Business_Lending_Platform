@@ -686,13 +686,13 @@
           </div>
 
           <!-- Section 2: Stats -->
-          <div class="grid-4" style="margin-bottom: 32px;">
+          <div class="dash-stat-grid" style="margin-bottom: 32px;">
+
             <div class="dash-card">
               <div class="stat-card">
                 <div>
                   <span class="stat-label">Funding Requested</span>
                   <div class="stat-value">$75,000</div>
-                  <span class="stat-trend trend-up"><i class="fa-solid fa-arrow-up"></i> Target</span>
                 </div>
                 <div class="stat-icon"><i class="fa-solid fa-bullseye"></i></div>
               </div>
@@ -702,8 +702,7 @@
                 <div>
                   <span class="stat-label">Amount Funded</span>
                   <div class="stat-value">$52,500</div>
-                  <span class="stat-trend" style="background: rgba(59, 130, 246, 0.1); color: #3B82F6;"><i
-                      class="fa-solid fa-users"></i> 42 Investors</span>
+
                 </div>
                 <div class="stat-icon"><i class="fa-solid fa-coins"></i></div>
               </div>
@@ -713,7 +712,6 @@
                 <div>
                   <span class="stat-label">Funding Progress</span>
                   <div class="stat-value">70%</div>
-                  <span class="stat-trend trend-up"><i class="fa-solid fa-clock"></i> 18 Days Left</span>
                 </div>
                 <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
               </div>
@@ -723,8 +721,7 @@
                 <div>
                   <span class="stat-label">Next Repayment</span>
                   <div class="stat-value">$2,450</div>
-                  <span class="stat-trend" style="background: rgba(245, 158, 11, 0.1); color: #F59E0B;"><i
-                      class="fa-solid fa-calendar"></i> Due Jan 15</span>
+
                 </div>
                 <div class="stat-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
               </div>
@@ -732,7 +729,8 @@
           </div>
 
           <!-- Section 3 & 4: Progress & Timeline -->
-          <div class="grid-2" style="gap: 32px; margin-bottom: 32px; align-items: start;">
+          <div class="grid-2 dash-perf-grid" style="gap: 32px; margin-bottom: 32px; align-items: start;">
+
             <!-- Funding Progress -->
             <div class="dash-card" style="height: 100%;">
               <div class="dash-card-header">
@@ -1015,14 +1013,28 @@
         <div id="tab-settings" class="dash-content-tab">
           <h2 style="margin-bottom: 24px;">Settings</h2>
           <div class="dash-card">
-            <h4 style="margin-bottom: 16px;">Profile Information</h4>
-            <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
-              <input type="text" class="form-control" value="Alex Johnson"
-                style="padding: 12px; border: 1px solid var(--dash-border); border-radius: 8px;">
-              <input type="email" class="form-control" value="alex@artisanbakes.com"
-                style="padding: 12px; border: 1px solid var(--dash-border); border-radius: 8px;">
-              <button class="btn btn-primary" style="padding: 12px;">Save Changes</button>
-            </div>
+            <h4 style="margin-bottom: 24px;">Profile Information</h4>
+            <form class="settings-form" onsubmit="return false;">
+              <div class="settings-field">
+                <label class="settings-label">Full Name</label>
+                <input type="text" class="form-control" value="Alex Johnson" placeholder="Your full name">
+              </div>
+              <div class="settings-field">
+                <label class="settings-label">Email Address</label>
+                <input type="email" class="form-control" value="alex@artisanbakes.com" placeholder="your@email.com">
+              </div>
+              <div class="settings-field">
+                <label class="settings-label">Phone Number</label>
+                <input type="tel" class="form-control" value="+1 (555) 000-0000" placeholder="Phone number">
+              </div>
+              <div class="settings-field">
+                <label class="settings-label">Business Name</label>
+                <input type="text" class="form-control" value="Artisan Bakes" placeholder="Your business name">
+              </div>
+              <div>
+                <button class="btn btn-primary" style="padding: 12px 32px;">Save Changes</button>
+              </div>
+            </form>
           </div>
         </div>
 

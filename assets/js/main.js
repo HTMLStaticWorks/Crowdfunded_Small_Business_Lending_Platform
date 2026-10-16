@@ -1,4 +1,4 @@
-﻿function toggleTheme() {
+function toggleTheme() {
   const current = document.documentElement.dataset.theme;
   const newTheme = current === 'dark' ? 'light' : 'dark';
   document.documentElement.dataset.theme = newTheme;
@@ -24,13 +24,41 @@ function toggleRTL() {
   }
 })();
 
+function closeMobileMenu() {
+  const links = document.querySelector('.nav-links');
+  const actions = document.querySelector('.nav-actions');
+  const nav = document.querySelector('.navbar');
+  links?.classList.remove('show');
+  actions?.classList.remove('show');
+  document.body.classList.remove('mobile-menu-open');
+  if (nav) nav.style.removeProperty('--mobile-menu-height');
+}
+
 function toggleMobileMenu() {
   const links = document.querySelector('.nav-links');
   const actions = document.querySelector('.nav-actions');
-  if (links) links.classList.toggle('show');
-  if (actions) actions.classList.toggle('show');
-}
+  const nav = document.querySelector('.navbar');
+  if (!links || !actions || !nav) return;
 
+  const opening = !links.classList.contains('show');
+  if (!opening) {
+    closeMobileMenu();
+    return;
+  }
+
+  const currentScrollY = window.scrollY;
+  links.classList.add('show');
+  actions.classList.add('show');
+  document.body.classList.add('mobile-menu-open');
+
+  requestAnimationFrame(() => {
+    const linksHeight = links.scrollHeight;
+    nav.style.setProperty('--mobile-menu-height', `${linksHeight}px`);
+    actions.style.setProperty('top', `calc(100% + ${linksHeight}px)`);
+    // Keep the document stationary while the overlay menu is open.
+    window.scrollTo({ top: currentScrollY, behavior: 'auto' });
+  });
+}
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -53,6 +81,18 @@ document.addEventListener('DOMContentLoaded', () => {
     hamburger.onclick = toggleMobileMenu;
     navInner.insertBefore(hamburger, navInner.children[1]);
   }
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 1024) {
+      closeMobileMenu();
+    }
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      closeMobileMenu();
+    }
+  });
 
   window.addEventListener('scroll', () => {
     const nav = document.querySelector('.navbar');

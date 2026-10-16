@@ -1,0 +1,45 @@
+LENDCIRCLE WEBSITE CORRECTION REPORT
+
+Changes made from the supplied client review document (pages 7–8):
+1. Light-mode header is forced to a light background; Login is styled as the primary navigation CTA.
+2. Home 1: hero second CTA is styled as a secondary/outline action; closing CTA has a stronger visual treatment and improved contrast.
+3. Home 2: hero content is centered; For Businesses and For Investors cards now use relevant images; unsupported statistics in the closing area were removed and replaced with a clear CTA panel.
+4. About: Our Impact section now uses high-contrast white headings and readable supporting labels; What Drives Us / Our Core Values has a more modern card layout.
+5. Invest: investment opportunity cards now include relevant business imagery and the final Start Investing CTA points to signup.
+6. Responsive navigation: tablet spacing was tightened; mobile navigation panels overlay content instead of pushing the hero down; menu panel placement is calculated from the menu height, with resize/Escape closing support.
+7. Responsive layout: section spacing, grid layouts, buttons, headings and mobile gutters were refined for tablet and phone widths.
+
+Validation performed:
+- JavaScript syntax checked with Node.
+- HTML pages parsed to check document structure and missing image alt text on the pages edited.
+- This is a static front-end website. Form submission, login, funding, and investment actions still require a real backend to be functional.
+
+Please test the pages at 360px, 768px, and 1024px in a browser before publishing.
+
+
+Follow-up fixes (2026-10-16):
+- Light-mode hamburger icon is white with no circular border or outline.
+- Open mobile/tablet menu uses a light background with readable dark menu links and visible navigation/action items.
+- Dropdown panels are positioned over the page and scroll internally when needed; opening/closing preserves page scroll position to prevent hero/page jumping.
+
+Screenshot follow-up:
+- Removed excessive vertical gap between Dashboard and the theme/RTL controls in the expanded mobile menu.
+- Added explicit light-mode icon contrast and button backgrounds.
+- Locked body scrolling while the menu is open; menu items scroll within the dropdown and Escape closes it.
+
+
+Client report corrections (2026-10-16):
+1. Light-mode navbar and footer use a light background with readable dark text and controls.
+2. Home 2 Our Mission visuals use consistent image sizing/object-fit to avoid awkward cropping.
+3. Added a complete growth-focused section to Home 1 with relevant image and CTAs.
+4. Invest page Curated for You cards and images use consistent heights, alignment, and flexible card layout.
+5. Replaced the four key Why Invest feature icons with relevant image visuals.
+
+
+Latest follow-up corrections (2026-10-16):
+1. Improved light-mode footer text contrast across paragraphs, labels, headings, links, brand, and social controls.
+2. Set light-mode hamburger icon to black.
+3. Updated all four Why Invest feature images to distinct local assets under assets/images/.
+4. Added consistent horizontal inner padding to Featured Investment Opportunities card content while keeping image edges aligned.
+5. Updated Home 2 audience images to contain within a fixed visual area to avoid cropping; adjusted image presentation and card content spacing.
+6. Replaced Home 1 'A clearer path from ambition to growth' right-side image with solution3.jpg from the local image folder.

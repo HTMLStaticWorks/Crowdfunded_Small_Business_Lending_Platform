@@ -479,12 +479,21 @@ html[dir="rtl"] .scroll-top { right: auto; left: 30px; }
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
   margin-bottom: 32px;
+  align-items: stretch;
 }
 .dash-stat-grid .dash-card {
-  min-height: 160px;
+  height: 130px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  padding: 20px 24px;
+  box-sizing: border-box;
+}
+.dash-stat-grid .stat-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 @media (max-width: 1024px) {
   .dash-stat-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1057,5 +1066,30 @@ html:not([data-theme="dark"]) .hamburger svg { color: #111 !important; }
     padding-left: 10px !important;
     padding-right: 10px !important;
   }
+  }
 }
 
+/* Fix 1: Capital With Purpose – equal size buttons on mobile */
+@media (max-width: 640px) {
+  .capital-purpose-btns {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .capital-purpose-btns .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Fix 2: Dual Value Proposition – images same level (equal height, cover) */
+.audience-card .audience-image {
+  height: 280px !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  background: #e8e6df !important;
+}
+@media (max-width: 768px) {
+  .audience-card .audience-image {
+    height: 220px !important;
+  }
+}

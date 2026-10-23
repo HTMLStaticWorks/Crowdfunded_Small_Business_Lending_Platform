@@ -237,6 +237,49 @@
       overflow: hidden;
     }
 
+    /* Equal-size stat cards */
+    .dash-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 32px;
+      align-items: stretch;
+    }
+    .dash-stat-grid .dash-card {
+      height: 120px !important;
+      min-height: unset !important;
+      padding: 16px 20px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      overflow: hidden !important;
+    }
+    .dash-stat-grid .stat-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+    }
+    .dash-stat-grid .stat-label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 0.78rem;
+      display: block;
+    }
+    .dash-stat-grid .stat-value {
+      font-size: 1.75rem;
+      margin: 6px 0 0;
+    }
+    @media (max-width: 1024px) {
+      .dash-stat-grid { grid-template-columns: repeat(2, 1fr); }
+      .dash-stat-grid .dash-card { height: 110px !important; }
+    }
+    @media (max-width: 640px) {
+      .dash-stat-grid { grid-template-columns: 1fr; }
+      .dash-stat-grid .dash-card { height: 100px !important; }
+    }
+
     .dash-card-header {
       display: flex;
       justify-content: space-between;
@@ -694,7 +737,7 @@
                   <span class="stat-label">Funding Requested</span>
                   <div class="stat-value">$75,000</div>
                 </div>
-                <div class="stat-icon"><i class="fa-solid fa-bullseye"></i></div>
+
               </div>
             </div>
             <div class="dash-card">
@@ -702,9 +745,7 @@
                 <div>
                   <span class="stat-label">Amount Funded</span>
                   <div class="stat-value">$52,500</div>
-
                 </div>
-                <div class="stat-icon"><i class="fa-solid fa-coins"></i></div>
               </div>
             </div>
             <div class="dash-card">
@@ -713,7 +754,6 @@
                   <span class="stat-label">Funding Progress</span>
                   <div class="stat-value">70%</div>
                 </div>
-                <div class="stat-icon"><i class="fa-solid fa-chart-line"></i></div>
               </div>
             </div>
             <div class="dash-card">
@@ -721,9 +761,7 @@
                 <div>
                   <span class="stat-label">Next Repayment</span>
                   <div class="stat-value">$2,450</div>
-
                 </div>
-                <div class="stat-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
               </div>
             </div>
           </div>
@@ -922,10 +960,10 @@
             <p style="color: rgba(255,255,255,0.7); max-width: 500px; margin: 0 auto 32px; font-size: 1.1rem;">Our
               support
               team is available to help you complete your funding journey.</p>
-            <div style="display: flex; gap: 16px; justify-content: center;">
-              <a href="contact.html" class="btn btn-primary" style="padding: 12px 32px;">Contact Support</a>
+            <div style="display: flex; flex-direction: column; gap: 16px; justify-content: center; align-items: center; max-width: 320px; margin: 0 auto;">
+              <a href="contact.html" class="btn btn-primary" style="padding: 12px 32px; width: 100%; text-align: center;">Contact Support</a>
               <button class="btn btn-outline"
-                style="border-color: rgba(255,255,255,0.3); color: #fff; padding: 12px 32px;">View Help Center</button>
+                style="border-color: rgba(255,255,255,0.3); color: #fff; padding: 12px 32px; width: 100%;">View Help Center</button>
             </div>
           </div>
 
